@@ -8,7 +8,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.example.seuminguelas.data.entities.Carrinho
-import com.example.seuminguelas.data.relations.CarrinhoComPedidos
 import com.example.seuminguelas.data.relations.CarrinhoCompleto
 
 @Dao
@@ -22,15 +21,7 @@ interface CarrinhoDao {
 
     @Transaction
     @Query("SELECT * FROM carrinho WHERE id = :id")
-    suspend fun buscarCarrinhoComPedidos(id: Long): CarrinhoComPedidos?
-
-    @Transaction
-    @Query("SELECT * FROM carrinho WHERE id = :id")
     suspend fun buscarCarrinhoCompleto(id: Long): CarrinhoCompleto?
-
-    @Transaction
-    @Query("SELECT * FROM carrinho WHERE usuarioId = :usuarioId ORDER BY dataCriacao DESC")
-    fun observarCarrinhosDoUsuario(usuarioId: Long): LiveData<List<CarrinhoComPedidos>>
 
     @Insert
     suspend fun inserir(carrinho: Carrinho): Long
